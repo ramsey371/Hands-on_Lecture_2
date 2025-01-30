@@ -1,21 +1,38 @@
 class Solution {
     public List<List<Integer>> generate(int numRows) {
 
-       List<List<Integer>> rows = new ArrayList<>();
-       for (int i = 0; i < numRows; i++){
+        // Initialize a list to hold all rows of Pascal's Triangle
+        List<List<Integer>> rows = new ArrayList<>();
+        
+        // Iterate through each row from 0 to numRows-1
+        for (int i = 0; i < numRows; i++) {
+            
+            // Create a new list for the current row
             List<Integer> singleRow = new ArrayList<>();
-                for(int j = 0; j <= i; j++){
-                    singleRow.add(1);
-                }
-                for(int j = 1; j<i; j++){
-                    int valueAboveLeft = rows.get(i-1).get (j-1);
-                    int valueAboveRight = rows.get(i-1).get(j);
-                    int sum = valueAboveLeft + valueAboveRight;
-                    singleRow.set(j, sum);
-                }
-                rows.add(singleRow);
-       }
-       return rows;
-
+            
+            // Fill the row with initial values of 1
+            for (int j = 0; j <= i; j++) {
+                singleRow.add(1);
+            }
+            
+            // Compute values inside the row (except first and last element)
+            for (int j = 1; j < i; j++) { 
+                // Get values from the previous row (above left and above right)
+                int valueAboveLeft = rows.get(i - 1).get(j - 1);
+                int valueAboveRight = rows.get(i - 1).get(j);
+                
+                // Calculate sum of the two values from the previous row
+                int sum = valueAboveLeft + valueAboveRight;
+                
+                // Update the current row at position j with the computed sum
+                singleRow.set(j, sum);
+            }
+            
+            // Add the completed row to the result list
+            rows.add(singleRow);
+        }
+        
+        // Return the complete Pascal's Triangle
+        return rows;
     }
 }
